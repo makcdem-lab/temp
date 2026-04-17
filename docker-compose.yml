@@ -1,0 +1,8 @@
+services:
+  fishing-booking:
+    build: .
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./data.db:/app/data.db
+    restart: unless-stopped
