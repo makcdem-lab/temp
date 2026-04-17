@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FishIng — Шахматка бронирования</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>🎣 FishIng — Онлайн запись на рыбалку</h1>
+      <p class="muted">Шахматка бронирования для клиентов и администратора</p>
+    </div>
+    <div class="toolbar">
+      <label>Дата <input id="datePicker" type="date" /></label>
+      <label>Роль
+        <select id="rolePicker">
+          <option value="client">Клиент</option>
+          <option value="admin">Админ</option>
+        </select>
+      </label>
+      <button id="exportBtn" class="secondary">Экспорт CSV</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Шахматка</h2>
+      <p class="muted">По вертикали — зоны, по горизонтали — часы с 06:00 до 23:00.</p>
+      <div class="legend">
+        <span class="tag free">Свободно</span>
+        <span class="tag pending">Ожидание</span>
+        <span class="tag confirmed">Подтверждено</span>
+        <span class="tag paid">Оплачено</span>
+      </div>
+      <div id="gridWrap" class="grid-wrap"></div>
+    </section>
+
+    <aside class="panel side" id="sidePanel">
+      <h2 id="panelTitle">Новая бронь</h2>
+      <form id="bookingForm">
+        <input type="hidden" id="bookingId" />
+        <label>Зона
+          <select id="zone"></select>
+        </label>
+        <label>Имя
+          <input id="customerName" required placeholder="Иван" />
+        </label>
+        <label>Телефон
+          <input id="phone" required placeholder="+79991234567" />
+        </label>
+        <label>Начало
+          <input id="startHour" type="number" min="6" max="22" required />
+        </label>
+        <label>Длительность (ч)
+          <input id="duration" type="number" min="1" max="12" value="2" required />
+        </label>
+        <label>Комментарий
+          <textarea id="comment" rows="2" placeholder="Пожелания по месту"></textarea>
+        </label>
+        <label id="statusWrap">Статус
+          <select id="status">
+            <option value="pending">pending</option>
+            <option value="confirmed">confirmed</option>
+            <option value="paid">paid</option>
+          </select>
+        </label>
+
+        <div class="actions">
+          <button type="submit" id="saveBtn">Сохранить</button>
+          <button type="button" id="deleteBtn" class="danger hidden">Удалить</button>
+          <button type="button" id="resetBtn" class="secondary">Сброс</button>
+        </div>
+      </form>
+
+      <hr />
+
+      <h3>Метрики дня</h3>
+      <ul id="metrics" class="metrics"></ul>
+
+      <h3>Список броней</h3>
+      <div id="bookingList" class="booking-list"></div>
+    </aside>
+  </main>
+
+  <template id="bookingCardTpl">
+    <div class="booking-card">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
